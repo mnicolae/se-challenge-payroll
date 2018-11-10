@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Wave Software Development Challenge API
+host: localhost:10010
+basePath: /
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /v1/payroll/uploadTimeReport:
+    x-swagger-router-controller: payroll
+    post:
+      description: >-
+       Upload and parse a time report, and store the timekeeping information in a relational database for archival reasons. The response returns an application/json object.
+      operationId: uploadTimeReport
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: imgFile
+          in: formData
+          type: file
+          required: true
+          description: The time report to upload.
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/UploadTimeReportResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
+  UploadTimeReportResponse:
+    required:
+      - message
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string

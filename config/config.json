@@ -1,0 +1,4 @@
+{
+  "logLevel": "debug",
+  "serverTimeout": 3600000
+}
