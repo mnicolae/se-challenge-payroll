@@ -1,4 +1,5 @@
 {
   "logLevel": "debug",
-  "serverTimeout": 3600000
+  "serverTimeout": 3600000,
+  "uploadDir": "timeReportUploads/"
 }

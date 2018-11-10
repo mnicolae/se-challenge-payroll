@@ -20,7 +20,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: imgFile
+        - name: timeReportFile
           in: formData
           type: file
           required: true

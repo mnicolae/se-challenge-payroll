@@ -53,8 +53,8 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   });
 
   // Enable formidable upload middleware to handle file uploads
-  //const uploadMiddleware = require('./api/lib/upload-middleware');
-  //app.post('/v1/payroll/uploadTimeReport', uploadMiddleware);
+  const uploadMiddleware = require('./api/lib/upload-middleware');
+  app.post('/v1/payroll/uploadTimeReport', uploadMiddleware);
 
   // install middleware
   swaggerExpress.register(app);
