@@ -13,7 +13,9 @@ paths:
     x-swagger-router-controller: payroll
     post:
       description: >-
-       Upload and parse a time report, and store the timekeeping information in a relational database for archival reasons. The response returns an application/json object.
+       Upload and parse a time report, and store the timekeeping information in
+       a relational database for archival reasons.
+       The response returns an application/json object.
       operationId: uploadTimeReport
       consumes:
         - multipart/form-data
@@ -30,6 +32,27 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/UploadTimeReportResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /v1/payroll/getPayrollReport:
+    x-swagger-router-controller: payroll
+    post:
+      description: >-
+       Get a payroll report. The response returns an array of objects. Each
+       object describes how much each employee should be paid in each pay
+       period.
+      operationId: getPayrollReport
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/getPayrollReportResponse"
         default:
           description: Error
           schema:
@@ -51,3 +74,13 @@ definitions:
         type: boolean
       message:
         type: string
+  GetAllImageResponse:
+    required:
+      - images
+    properties:
+      success:
+        type: boolean
+      payrolls:
+        type: array
+        items:
+          type: object
