@@ -1,5 +1,10 @@
 {
   "logLevel": "debug",
   "serverTimeout": 3600000,
-  "uploadDir": "timeReportUploads/"
+  "uploadDir": "timeReportUploads/",
+  "dbHost": "localhost",
+  "dbPort": 5432,
+  "dbName": "payroll",
+  "dbUser": "postgres",
+  "dbPass": "Good4now!"
 }

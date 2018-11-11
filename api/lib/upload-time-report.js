@@ -5,6 +5,7 @@ const config = require('../../config/config').getconfig();
 const logger = require('log4js').getLogger();
 const async = require('async');
 logger.level = config.logLevel;
+const dbrouter = require('./database-router.js');
 
 /**
  * @description
@@ -36,7 +37,7 @@ exports.uploadReport = function uploadReport(options, callback) {
  */
 function validateTimeReportFile(options, callback) {
   logger.debug("parsing time report file");
-  
+
   let stream = fs.createReadStream(options.timeReportFile).pipe(csv());
 
   // emitted for each row of data parsed, except the header row

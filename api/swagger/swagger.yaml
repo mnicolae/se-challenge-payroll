@@ -38,7 +38,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
   /v1/payroll/getPayrollReport:
     x-swagger-router-controller: payroll
-    post:
+    get:
       description: >-
        Get a payroll report. The response returns an array of objects. Each
        object describes how much each employee should be paid in each pay
@@ -74,9 +74,9 @@ definitions:
         type: boolean
       message:
         type: string
-  GetAllImageResponse:
+  getPayrollReportResponse:
     required:
-      - images
+      - payrolls
     properties:
       success:
         type: boolean
