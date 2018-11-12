@@ -22,10 +22,14 @@ client.connect();
  */
 exports.selectPayrollReport = function selectPayrollReport(options, callback) {
   logger.debug("reading payroll report from database");
-  //client.query('SELECT * FROM PAYROLLS;', (err, res) => {
-  //  logger.debug(err, res)
-  //  client.end()
-  //});
-
-  return callback(null, "Placeholder for now");
+  const query_text = 'select empid, pay_period, amount_paid from payrolls ' +
+                     'order by empid, pay_period';
+  client.query(query_text, (err, res) => {
+    if (err) {
+      logger.err(err.stack);
+    } else {
+      return callback(null, res.rows);
+    }
+    client.end()
+  });
 }
