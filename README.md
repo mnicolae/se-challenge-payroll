@@ -244,4 +244,4 @@ yum install -y nodejs
 
 ### Run application
 
-From root directory of this repo run `npm start` to run application. Then, from your browser, navigate to http://localhost:100010.
+From root directory of this repo run `npm start` to run application. Then, from your browser, navigate to http://localhost:10010.
