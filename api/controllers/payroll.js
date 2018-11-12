@@ -30,7 +30,6 @@ function uploadTimeReport(req, res) {
   const options = {
     timeReportFile: req.files.timeReportFile.path,
   };
-  logger.debug("options received: " + options);
 
   upload.uploadReport(options, function(err, result) {
     if (err) {
