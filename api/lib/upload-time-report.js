@@ -7,12 +7,17 @@ const logger = require('log4js').getLogger();
 const async = require('async');
 logger.level = config.logLevel;
 const dbrouter = require('./database-router.js');
+const dateHelper = require('../helper/date-helper.js');
+const payrollHelper = require('../helper/payroll-helper.js');
 
 /**
  * @description
- *  Main entry to upload time report: validate a report with the same id was
- * not already uploaded, TBD.
- *
+ *  Main entry to upload time report:
+ *    1. Validate a report with the same id was not already uploaded
+ *    2. For each entry, calculate the amount paid, based on number of hours
+ *    worked and job group, and the payroll date, either the 15th or the end of
+ *    the month.
+ *    3. For each entry, update the payrolls table accordingly.
  * @param options: {timeReportFile}
  * @param callback
  */
@@ -57,27 +62,40 @@ function validateReportId(options, callback) {
 }
 
 /**
- * @description: Parse the given time report file, and store the timekeeping
- * information in a relational database for archival reasons.
+ * @description: Parse the given time report file and update the payrolls table
+ * accordingly. For each entry, calculate the amount paid, based on number of
+ * hours worked and job group, and the payroll date, either the 15th or the
+ * end of the month. For each entry, update the payrolls table accordingly.
  *
  * @param options {timeReportFile}
  * @param callback
  */
 function validateTimeReportFile(options, callback) {
-  logger.debug("parsing time report file");
-
-  var parser = parse({delimiter: ','}, function (err, data) {
+  logger.debug("parsing time report file and updating payrolls table");
+  const parse_options = {delimiter: ',',
+                         // skip header line
+                         from: 2,
+                         skip_lines_with_empty_values: true};
+  var parser = parse(parse_options, function (err, data) {
     data.forEach(function(line) {
-      var report_entry = {"date": line[0], "hours_worked": line[1],
-                          "empid": line[2], "job_group": line[3]};
-     logger.debug(JSON.stringify(report_entry));
+        // skip footer line
+        if (line[0] !== 'report id') {
+          var update_entry = {"empid": line[2]}
+          dateHelper.convertDateToPayrollDate(line[0], function(err, res) {
+            update_entry["pay_period"] = res;
+          });
+          const opts = {"hours_worked": line[1], "job_group": line[3]};
+          payrollHelper.convertHoursWorkedToCompensation(opts, function(err, res) {
+            update_entry["amount_paid"] = res;
+          });
+          // TODO: update the payrolls table here
+        }
     });
   });
 
   let stream = fs.createReadStream(options.timeReportFile).pipe(parser);
 
   stream.on('end', () => {
-    logger.debug("finished parsing time report file");
-    return callback(null, "Placeholder for now");
+    return callback(null, "Successfully uploaded time report!");
   });
 }
