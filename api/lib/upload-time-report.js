@@ -17,7 +17,7 @@ const payrollHelper = require('../helper/payroll-helper.js');
  *    2. For each entry, calculate the amount paid, based on number of hours
  *    worked and job group, and the payroll date, either the 15th or the end of
  *    the month.
- *    3. For each entry, update the payrolls table accordingly.
+ *    3. For each entry, insert into the payrolls table.
  * @param options: {timeReportFile}
  * @param callback
  */
@@ -62,10 +62,10 @@ function validateReportId(options, callback) {
 }
 
 /**
- * @description: Parse the given time report file and update the payrolls table
- * accordingly. For each entry, calculate the amount paid, based on number of
+ * @description: Parse the given time report file and insert into the payrolls
+ * table accordingly. For each entry, calculate the amount paid, based on number of
  * hours worked and job group, and the payroll date, either the 15th or the
- * end of the month. For each entry, update the payrolls table accordingly.
+ * end of the month. For each entry, insert into the payrolls table accordingly.
  *
  * @param options {timeReportFile}
  * @param callback
@@ -88,7 +88,7 @@ function validateTimeReportFile(options, callback) {
           payrollHelper.convertHoursWorkedToCompensation(opts, function(err, res) {
             update_entry["amount_paid"] = res;
           });
-          // TODO: update the payrolls table here
+          // TODO: insert into the payrolls table here
         }
     });
   });
