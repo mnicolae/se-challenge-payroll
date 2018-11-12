@@ -9,6 +9,26 @@ schemes:
 produces:
   - application/json
 paths:
+  /:
+    x-swagger-router-controller: payroll-frontend
+    get:
+      description: >-
+       UI component to accept (via a form) a time report file and display
+       a payroll report table.
+      operationId: renderPayrollFrontend
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/renderPayrollFrontendResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /v1/payroll/uploadTimeReport:
     x-swagger-router-controller: payroll
     post:
@@ -84,3 +104,9 @@ definitions:
         type: array
         items:
           type: object
+  renderPayrollFrontendResponse:
+    properties:
+      success:
+        type: boolean
+      message:
+        type: string
