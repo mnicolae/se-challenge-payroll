@@ -222,3 +222,26 @@ Evaluation of your submission will be based on the following criteria.
    they explained?
 1. Did you separate any concerns in your application? Why or why not?
 1. Does your solution use appropriate data types for the problem as described?
+
+## Instructions to build/run application (RHEL 7.4)
+
+### Build application
+
+1. Add yum repository for stable release of Node.js.
+
+```
+yum install -y gcc-c++ make
+curl -sL https://rpm.nodesource.com/setup_8.x | sudo -E bash -
+```
+
+2. Install Node.js and NPM.
+
+```
+yum install -y nodejs
+```
+
+3. From root directory of this repo run `npm install` to install all node modules used by the application.
+
+### Run application
+
+From root directory of this repo run `npm start` to run application. Then, from your browser, navigate to http://localhost:100010.
