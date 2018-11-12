@@ -32,15 +32,14 @@ function uploadTimeReport(req, res) {
   };
 
   upload.uploadReport(options, function(err, result) {
-    if (err) {
-      logger.debug("error received: err: " + err + " result: " + result);
+    // remove the time report file
+    fs.unlink(options.timeReportFile, function(err) {
+      if (err) {
+        logger.debug(err.message);
+      }
+    });
 
-      // remove the time report file
-      fs.unlink(options.timeReportFile, function(err) {
-        if (err) {
-          logger.debug(err.message);
-        }
-      });
+    if (err) {
       // if result is not initialized default to 400
       if (result == null) {
         result = 400;
@@ -52,25 +51,11 @@ function uploadTimeReport(req, res) {
       });
     }
     if (result) {
-      // remove the time report file
-      fs.unlink(options.timeReportFile, function(err) {
-        if (err) {
-          logger.debug(err.message);
-        }
-      });
-
       return res.json({
         success: true,
         message: result
       });
     } else {
-      // remove the time report file
-      fs.unlink(options.timeReportFile, function(err) {
-        if (err) {
-          logger.debug(err.message);
-        }
-      });
-
       res.status(400);
       return res.json({
         success: false,
