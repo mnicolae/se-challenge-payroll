@@ -54,3 +54,24 @@ exports.timeReportIdExists = function timeReportIdExists(options, callback) {
     client.end()
   });
 }
+
+/**
+ * @description: Insert a new entry into the payrolls table.
+ *
+ * @param options {empid, pay_period, amount_paid, report_id}
+ * @param callback
+ */
+exports.insertIntoPayrollsReport = function insertIntoPayrollsReport(options, callback) {
+  const query = {text: "insert into payrolls(empid, pay_period, amount_paid, report_id) VALUES($1, TO_DATE($2, 'DD/MM/YYYY'), $3, $4)",
+                 values: [options.empid, options.pay_period, options.amount_paid, options.report_id]}
+
+  client.query(query, (err, res) => {
+    if (err) {
+      logger.debug(err);
+      return callback(err, 500);
+    } else {
+      return callback();
+    }
+    client.end()
+  });
+}

@@ -53,7 +53,8 @@ function validateReportId(options, callback) {
       } else if (res === true) {
         return callback(new Error("report id " + report_id + " already exists"), 400);
       } else {
-        return callback();
+        options["report_id"] = report_id;
+        return callback(null);
       }
     });
   }).catch(function (err) {
@@ -88,7 +89,12 @@ function validateTimeReportFile(options, callback) {
           payrollHelper.convertHoursWorkedToCompensation(opts, function(err, res) {
             update_entry["amount_paid"] = res;
           });
-          // TODO: insert into the payrolls table here
+          update_entry["report_id"] = options["report_id"];
+          dbrouter.insertIntoPayrollsReport(update_entry, function(err, res) {
+            if (err) {
+              return callback(err, 500);
+            }
+          });
         }
     });
   });
