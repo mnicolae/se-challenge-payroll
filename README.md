@@ -249,6 +249,13 @@ From root directory of this repo run `yarn dev`. This will launch a browser tab 
 
 ## Implementation
 
-The implementation is something I'm particularly proud because it follows all best practices of web application development I could enforce in the short amount of time I had to complete the challenge. I am referring to usage of middleware component for uploading file, usage of Swagger for designing and modeling APIs, code modularization, usage of global configuration component, graceful handling of error cases, extensive logging, prevention of SQL injection.
+The implementation is something I'm particularly proud of because it follows all the best practices of web application development I could enforce in the few hours to complete the challenge. I am referring to
+* usage of middleware component for uploading file
+* usage of Swagger for designing and modeling APIs
+* code modularization
+* usage of global configuration component
+* graceful handling of error cases
+* extensive logging
+* prevention of SQL injection
 
 Additionally, the instructions to build and run the application are minimal, given the database is deployed as a service in Heroku.
