@@ -10,6 +10,7 @@ const client = new Client({
   database: config.dbName,
   password: config.dbPass,
   port: config.dbPort,
+  ssl: true
 });
 client.connect();
 

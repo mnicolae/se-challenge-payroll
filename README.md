@@ -227,21 +227,28 @@ Evaluation of your submission will be based on the following criteria.
 
 ### Build application
 
-1. Add yum repository for stable release of Node.js.
+1. Add yum repository for stable release of Node.js and install Node.js and NPM.
 
 ```
-yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_8.x | sudo -E bash -
+sudo yum install -y gcc-c++ make nodejs
 ```
 
-2. Install Node.js and NPM.
+2. Install Yarn.
 
 ```
-yum install -y nodejs
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+sudo yum install -y yarn
 ```
 
-3. From root directory of this repo run `npm install` to install all node modules used by the application.
+3. Run `npm install` from the root directory of this repo and from the `client` directory to install all node modules used by the application.
 
 ### Run application
 
-From root directory of this repo run `npm start` to run application. Then, from your browser, navigate to http://localhost:10010.
+From root directory of this repo run `yarn dev`. This will launch a browser tab running the application at address http://localhost:3000.
+
+## Implementation
+
+The implementation is something I'm particularly proud because it follows all best practices of web application development I could enforce in the short amount of time I had to complete the challenge. I am referring to usage of middleware component for uploading file, usage of Swagger for designing and modeling APIs, code modularization, usage of global configuration component, graceful handling of error cases, extensive logging, prevention of SQL injection.
+
+Additionally, the instructions to build and run the application are minimal, given the database is deployed as a service in Heroku.

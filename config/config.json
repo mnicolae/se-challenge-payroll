@@ -2,9 +2,9 @@
   "logLevel": "debug",
   "serverTimeout": 3600000,
   "uploadDir": "timeReportUploads/",
-  "dbHost": "localhost",
+  "dbHost": "ec2-54-235-242-63.compute-1.amazonaws.com",
   "dbPort": 5432,
-  "dbName": "payroll",
-  "dbUser": "postgres",
-  "dbPass": "Good4now!"
+  "dbName": "dbm6n8jgta5sn9",
+  "dbUser": "puvzgcopmaxufl",
+  "dbPass": "9cf8cc54378b3a832383e2d126c1697a47f1afec8f2021f5dc456e36a22e8c87"
 }
