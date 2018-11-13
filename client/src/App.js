@@ -41,8 +41,10 @@ class App extends Component {
         },
       })
       .then(res => {
-        console.log(res.statusText)
-      })
+        fetch('/v1/payroll/getPayrollReport')
+          .then(response => response.json())
+          .then(data => this.setState({ payrolls: data.payrolls }))
+      });
   }
 
 render() {
